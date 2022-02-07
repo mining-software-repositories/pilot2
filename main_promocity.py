@@ -4,6 +4,8 @@ import datetime
 from pydriller import Repository
 
 path_repository = 'promocity'
+repositorio_src = path_repository + '/' + 'src'
+dir_src_java = 'src/main/java'
 
 def load_db(path_repository, create=False):
     ## 1. Carrega o banco de dados e cria as estruturas das tabelas
@@ -111,3 +113,42 @@ lista_unique_files = filesCompleteCollection.query_unique_files()
 for filename in lista_unique_files:
     dicionario_file_commits[filename] = filesCompleteCollection.query_commits_from_file_name(filename)
 print(dicionario_file_commits)
+
+t1 = datetime.datetime.now()
+print(t1)
+
+# 3. Gera uma lista contendo todos os arquivos e diretorios do repositorio src
+files_and_directories = utility.create_file_from_bash_tree(repositorio_src, "arquivosediretorios.txt")
+all_files_and_directories = utility.convert_file_in_list(files_and_directories)
+
+# 4. Gera uma lista contendo todos os diretorios do repositorio src
+directories = utility.create_file_from_bash_tree(repositorio_src, "diretorios.txt", all_files_directories=False)
+all_directories = utility.convert_file_in_list(directories)
+
+# 5. Lista de diretorios do diretório src/main/java do repositorio
+all_directories_from_src = [ each for each in all_directories if (dir_src_java in each) ]
+
+# 6 Lista todos os diretorios que estao no dir_src_java
+all_directories_and_java_files_from_src = [each for each in all_files_and_directories if (dir_src_java in each)]
+
+# 7. Lista todos os arquivos .java do diretório src/main/java do repositório
+all_java_files_from_src = [each for each in all_files_and_directories if ((dir_src_java in each) and ('.java' in each))]
+
+print(f'Lista todos os arquivos .java do {path_repository} no diretorio {dir_src_java}')
+for each in all_java_files_from_src:
+    print(each)
+print('')
+
+# 7. Lista todos os arquivos .java com suas LoCs
+file_loc_files = utility.create_loc_file_from_bash_tree(repositorio_src, 'locarquivosjava.txt')
+list_locs_files = utility.generate_list_locs_files(path_repository, file_loc_files)
+list_locs_java_files = [each for each in list_locs_files if (dir_src_java in each[1]) ]
+
+print(f'Lista todos os arquivos .java e suas LoCs do {path_repository} no diretorio {dir_src_java}')
+for each in list_locs_java_files:
+    print(each)
+print('')
+
+t2 = datetime.datetime.now()
+print(t2)
+print(f'Analise dos LoCs dos .java concluida em: {t2 -t1}')
