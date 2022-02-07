@@ -1,0 +1,6 @@
+msrpromocity.db
+.DS_Store
+__pycache__/dao.cpython-36.pyc
+__pycache__/utility.cpython-36.pyc
+backups/testepromocity-1.db.gz
+backups/testepromocity-2.db.gz
