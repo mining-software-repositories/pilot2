@@ -174,7 +174,7 @@ def create_dicionario_loc_filename(lista):
     for item in lista:
         loc = item[0]
         name = item[1].split('/')[-1]
-        dicionario[name] = loc
+        dicionario[name] = int(loc)
     return dicionario
 
 # Dicionario com a frequencia de commits de cada arquivo
