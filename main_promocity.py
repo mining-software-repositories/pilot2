@@ -142,7 +142,7 @@ for each in all_java_files_from_src:
     print(each)
 print('')
 
-# 7. Lista todos os arquivos .java com suas LoCs
+# 8. Lista todos os arquivos .java com suas LoCs
 file_loc_files = utility.create_loc_file_from_bash_tree(repositorio_src, 'locarquivosjava.txt')
 list_locs_files = utility.generate_list_locs_files(path_repository, file_loc_files)
 list_locs_java_files = [each for each in list_locs_files if (dir_src_java in each[1]) ]
@@ -156,6 +156,9 @@ t2 = datetime.datetime.now()
 print(t2)
 print(f'Analise dos LoCs dos .java concluida em: {t2 -t1}')
 
+# 8. Dado um arquivo mostra a quantidade total de linhas alteradas dentro da faixa de commits analisada
 promotion = filesCompleteCollection.query_all_modifications_by_name('Promotion.java')
-
 print(f'Quantidade de linhas totais modificadas de Promotion.java: { promotion }')
+
+# 9. Dado um arquivo mostra a frequencia de commits dentro da faixa de commits analisada
+print(utility.sort_dictionary_by_value( utility.create_dicionario_fc_filename(dicionario_file_commits)) )

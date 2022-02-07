@@ -1,5 +1,9 @@
 import json
 from pydriller import Repository
+import subprocess
+import os
+from pathlib import Path
+import plotly.graph_objects as go
 
 def concat_str(str1, str2):
     temp = str1 + ',' + str2
@@ -29,12 +33,6 @@ def list_commits_between_tags(from_tag, to_tag, my_repository):
     for commit in Repository(my_repository, from_tag=from_tag, to_tag=to_tag).traverse_commits():
         list_temp.append(commit)
     return list_temp
-
-import subprocess
-import os
-from pathlib import Path
-import plotly.graph_objects as go
-import lizard
 
 # Immprime n linhas da lista fornecida
 def print_n(n, list_to_print):
@@ -170,10 +168,18 @@ def search_loc_of_file(file_name, list):
     if file_name in each[1]:
       return int(each[0])
 
+# Dicionario com o LoC de cada arquivo
 def create_dicionario_loc_filename(lista):
     dicionario = {}
     for item in lista:
         loc = item[0]
         name = item[1].split('/')[-1]
         dicionario[name] = loc
+    return dicionario
+
+# Dicionario com a frequencia de commits de cada arquivo
+def create_dicionario_fc_filename(dicionario_fc):
+    dicionario = {}
+    for k, v in dicionario_fc.items():
+      dicionario[k] = len(v)
     return dicionario
