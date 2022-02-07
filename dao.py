@@ -149,6 +149,12 @@ class FilesCompleteCollection():
             list_files = list_files + files
         return list_files
 
+    def query_unique_files(self):
+        unique_files = []
+        for file in self.session.query(FileComplete.name).distinct():
+            unique_files.append(file.name)
+        return unique_files
+
 # Cria a sessao com o banco 
 def create_session():
     Session = sessionmaker(bind=engine)

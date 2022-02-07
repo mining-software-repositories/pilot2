@@ -1,4 +1,5 @@
 import json
+from pydriller import Repository
 
 def concat_str(str1, str2):
     temp = str1 + ',' + str2
@@ -22,3 +23,9 @@ def convert_dictionary_to_str(dictionary):
     if len(dictionary) > 0:
         temp = str(json.dumps(dictionary))
     return temp
+
+def list_commits_between_tags(from_tag, to_tag, my_repository):
+    list_temp = []
+    for commit in Repository(my_repository, from_tag=from_tag, to_tag=to_tag).traverse_commits():
+        list_temp.append(commit)
+    return list_temp
