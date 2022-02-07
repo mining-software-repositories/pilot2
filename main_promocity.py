@@ -103,7 +103,10 @@ list_commits_tag_promocity_100_122 = [commit.hash for commit in commits_tag_prom
 dicionario_commits_arquivos = {}
 for hash_commit in list_commits_tag_promocity_100_122:
     commit = commitsCompleteCollection.query_commit_by_hash(hash_commit)
-    dicionario_commits_arquivos[hash_commit] = commit.modified_files
+    if commit is not None and commit.modified_files is not None:
+      dicionario_commits_arquivos[hash_commit] = commit.modified_files
+    else:
+      dicionario_commits_arquivos[hash_commit] = ''
 print(dicionario_commits_arquivos)
 
 print('')
