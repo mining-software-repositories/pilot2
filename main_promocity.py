@@ -155,3 +155,7 @@ print('')
 t2 = datetime.datetime.now()
 print(t2)
 print(f'Analise dos LoCs dos .java concluida em: {t2 -t1}')
+
+promotion = filesCompleteCollection.query_all_modifications_by_name('Promotion.java')
+
+print(f'Quantidade de linhas totais modificadas de Promotion.java: { promotion }')

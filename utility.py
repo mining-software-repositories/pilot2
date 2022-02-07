@@ -169,3 +169,11 @@ def search_loc_of_file(file_name, list):
   for each in list:
     if file_name in each[1]:
       return int(each[0])
+
+def create_dicionario_loc_filename(lista):
+    dicionario = {}
+    for item in lista:
+        loc = item[0]
+        name = item[1].split('/')[-1]
+        dicionario[name] = loc
+    return dicionario

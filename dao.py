@@ -155,6 +155,14 @@ class FilesCompleteCollection():
             unique_files.append(file.name)
         return unique_files
 
+    def query_all_modifications_by_name(self, name):
+        files = self.query_files_by_name(name)
+        sum_all_modifications = 0
+        for each in files:
+            all_modifications = each.added_lines + each.deleted_lines
+            sum_all_modifications = sum_all_modifications + all_modifications
+        return sum_all_modifications
+
 # Cria a sessao com o banco 
 def create_session():
     Session = sessionmaker(bind=engine)
